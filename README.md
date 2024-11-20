@@ -29,8 +29,8 @@ This project is **open-source**, with the goal of enabling others to learn, cont
 
 ## 📦 Installation
 
-1. Download the plugin from the releases page.
-2. Add the `.jar` file to your Minecraft server's `/plugins` directory.
+1. Clone this repository and compile the plugin on an IDE.
+2. Add the compiled `.jar` file to your Minecraft server's `/plugins` directory.
 3. Configure the `config.yml` file:
     - Set up **MongoDB** and **Redis** credentials.
 4. Start or reload your server to initialize the plugin.
