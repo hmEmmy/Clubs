@@ -1,0 +1,71 @@
+package me.emmy.clubs.club.command;
+
+import com.jonahseguin.drink.annotation.Command;
+import com.jonahseguin.drink.annotation.Sender;
+import me.emmy.clubs.Clubs;
+import me.emmy.clubs.locale.Locale;
+import me.emmy.clubs.club.Club;
+import me.emmy.clubs.club.packet.ClubUpdateRolePacket;
+import me.emmy.clubs.profile.Profile;
+import me.emmy.clubs.role.Role;
+import me.emmy.clubs.util.CC;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * @author hieu
+ * @since 22/10/2023
+ */
+
+public class ClubsRoleCommand {
+
+    @Command(name = "role", desc = "")
+    public void execute(@Sender CommandSender sender, Profile target, Role role){
+        if (!(sender instanceof Player)){
+            sender.sendMessage(Locale.IN_GAME_COMMAND_ONLY);
+            return;
+        }
+        if (target == null){
+            sender.sendMessage(Locale.COULDNT_RESOLVE_PROFILE);
+            return;
+        }
+        Player player = (Player) sender;
+        Profile profile = Clubs.getInstance().getProfileHandler().getProfileByUUID(player.getUniqueId());
+        if (profile == null){
+            sender.sendMessage(Locale.PROFILE_ERROR);
+            return;
+        }
+        if (profile.getClub().isEmpty()){
+            sender.sendMessage(CC.translate("&cYou're not in a club."));
+            return;
+        }
+        if (player.getUniqueId().equals(target.getUuid())){
+            sender.sendMessage(CC.translate("&cYou can't update your club role."));
+            return;
+        }
+        Club club = Clubs.getInstance().getClubHandler().getClubByLowercaseName(profile.getClub().toLowerCase());
+        if (!(player.getUniqueId().equals(club.getLeader()))){
+            sender.sendMessage(CC.translate("&cSwitching &d" + target.getUsername() + "&c's role requires &dLeader &crole."));
+            return;
+        }
+        if (role == null){
+            sender.sendMessage(CC.translate("&cAvailable roles: &dAdmin &cor &dMember"));
+            return;
+        }
+        List<UUID> totalMembers = new ArrayList<>();
+        totalMembers.add(club.getLeader());
+        totalMembers.addAll(club.getAdmins());
+        totalMembers.addAll(club.getMembers());
+        if (!totalMembers.contains(target.getUuid())){
+            sender.sendMessage(CC.translate("&d" + target.getUsername() + " &cisn't in your club."));
+            return;
+        }
+        ClubUpdateRolePacket packet = new ClubUpdateRolePacket(target.getUuid(), role, club.getName());
+        Clubs.getInstance().getRedisHandler().sendPacket(packet);
+    }
+
+}

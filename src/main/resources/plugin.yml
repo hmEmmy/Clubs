@@ -1,0 +1,6 @@
+name: Clubs
+version: '${project.version}'
+description: '${project.description}'
+main: me.emmy.clubs.Clubs
+author: Emmy
+softdepend: [PlaceholderAPI]

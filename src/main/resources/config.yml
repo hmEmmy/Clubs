@@ -1,0 +1,26 @@
+# License key to activate the plugin
+LICENSE_KEY: ""
+# Database settings for MongoDB and Redis
+MONGO:
+  URI:
+    ENABLED: true
+    CONNECTION-STRING: "mongodb://localhost:27017/"
+  DEFAULT:
+    HOST: "localhost"
+    PORT: 27017
+    DATABASE: "Clubs"
+    AUTHENTICATION:
+      ENABLED: false
+      USERNAME: ""
+      PASSWORD: ""
+REDIS:
+  HOST: "127.0.0.1"
+  PORT: 6379
+  CHANNEL: "Clubs"
+  PASSWORD: ""
+# Message configuration for the plugin
+MESSAGES:
+  NOT-IN-A-CLUB: "&cYou're not in a club."
+  ALREADY-IN-A-CLUB: "Y&cYou are already in a Club"
+  ENABLED_CLUB_CHAT: "&aYou've enabled club chat."
+  DISABLED_CLUB_CHAT: "&cYou've disabled club chat."
