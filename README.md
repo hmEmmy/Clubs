@@ -4,6 +4,8 @@ Clubs is an advanced Minecraft plugin influenced by [MinemenClub](https://mineme
 
 This project is **open-source**, with the goal of enabling others to learn, contribute, and create an enhanced Minecraft server experience. It was originally developed by [imhieu](https://github.com/imhieu) and later acquired by me, **@Emmy**.
 
+For support or any kind of help/questions, join my [Discord](https://discord.com/invite/eT4B65k5E4).
+
 ---
 
 ## 🚀 Features
